@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "e-commerce-react-app-db",
+    "share-space-app": "share-space-app"
+  },
+  "targets": {},
+  "etags": {}
+}
