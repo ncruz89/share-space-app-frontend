@@ -1,5 +1,6 @@
 import React, { createContext, useState, useCallback, useEffect } from "react";
 
+// creation of Auth Context
 export const AuthContext = createContext({
   token: null,
   isLoggedIn: false,
@@ -10,11 +11,20 @@ export const AuthContext = createContext({
 
 let logoutTimerId;
 
+// AuthProvider component
+// reveives children parameter
+// handles token, userId and tokenExpirationDate states
+// returns AuthContext Provider component that wraps children parameters
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
 
+  // login method
+  // receives userId, token and expirationDate parameters
+  // sets Token and userId state with received parameters
+  // sets tokenExpirationDate state with expirationDate parameter or creates new expirationDate (1 hour)
+  // stores userId, token and expirationDate in browser's localStorage
   const login = useCallback((userId, token, expirationDate) => {
     setToken(token);
     setUserId(userId);
@@ -31,6 +41,9 @@ export const AuthProvider = ({ children }) => {
     );
   }, []);
 
+  // logout method
+  // sets token, userId and tokenExpirationDate states back to null
+  // removes userData item from browser's localStorage
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
@@ -38,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("userData");
   }, []);
 
+  // useEffect to calculate remaining token time and uses web Apis setTimeout and clearTimeout to handle token expiration time
   useEffect(() => {
     if (token && tokenExpirationDate) {
       const remainingTime =
@@ -48,6 +62,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token, logout, tokenExpirationDate]);
 
+  // initializes Auth Context Provider value
+  // allows access to loggedIn variable, token and userId states as well as login/logout methods
   const value = {
     isLoggedIn: !!token,
     token,

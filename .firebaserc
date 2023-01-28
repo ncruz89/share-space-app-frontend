@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "e-commerce-react-app-db",
+    "default": "share-space-app",
     "share-space-app": "share-space-app"
   },
   "targets": {},

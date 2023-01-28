@@ -6,6 +6,10 @@ import Button from "../../../shared/components/FormElements/Button/Button.compon
 
 import "./PlaceList.styles.css";
 
+// PlaceList components
+// receives items and onDeletePlace props
+// renders Card containing h2 and Button component if items array is empty
+// otherwise maps through items array and creates a PlaceItem component for each item
 const PlaceList = ({ items, onDeletePlace }) => {
   if (items.length === 0)
     return (
@@ -16,8 +20,6 @@ const PlaceList = ({ items, onDeletePlace }) => {
         </Card>
       </div>
     );
-
-  console.log(items);
 
   return (
     <ul className="place-list">

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import "./Button.styles.css";
 
+// Button Component
+// receives multiple props
+// returns one of many button renders dependent on props
 const Button = ({
   href,
   size,

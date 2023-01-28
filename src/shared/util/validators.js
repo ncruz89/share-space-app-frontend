@@ -20,6 +20,10 @@ export const VALIDATOR_MIN = (val) => ({ type: VALIDATOR_TYPE_MIN, val: val });
 export const VALIDATOR_MAX = (val) => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 
+// custom validator method
+// receives value and validators array
+// runs value through any validators passed in validators array
+// if any validators fail then isValid set to false and returned
 export const validate = (value, validators) => {
   let isValid = true;
   for (const validator of validators) {

@@ -5,6 +5,10 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "../Backdrop/Backdrop.component";
 import "./Modal.styles.css";
 
+// ModalOverlay Component
+// receives a list of props to implement a custom modal
+// fills modal content off props
+// returns a portal hooked into the index.html in public folder
 const ModalOverlay = ({
   className,
   style,
@@ -30,6 +34,9 @@ const ModalOverlay = ({
   return createPortal(content, document.getElementById("modal-hook"));
 };
 
+// Modal Component
+// uses CSS Transition library for modal implementation
+// houses custom ModalOverlay component
 const Modal = (props) => {
   return (
     <Fragment>

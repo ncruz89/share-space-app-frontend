@@ -1,5 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
+// useHttpClient custom hook
+// handles loading & error state
+// returns access to loading and error state as well as sendRequest and clearError methods
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -7,6 +10,14 @@ export const useHttpClient = () => {
   // create ref for activeHttpRequests
   const activeHttpRequests = useRef([]);
 
+  /* sendRequest method
+     receives url, method, body and headers parameters
+     handles loading state before and after request
+     runs fetch request with passed parameters
+     handles httpAbortCtrl in case component unmounts during active fetch requests
+     handles parsing response as json
+     returns data
+  */
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setIsLoading(true);
@@ -36,13 +47,14 @@ export const useHttpClient = () => {
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
-        console.log(activeHttpRequests);
         throw error;
       }
     },
     []
   );
 
+  // clearError method
+  // sets error state back to null
   const clearError = () => {
     setError(null);
   };

@@ -7,6 +7,9 @@ import Sidebar from "../Sidebar/Sidebar.component";
 
 import "./MainNav.styles.css";
 
+// MainNav Component
+// handles sidebarIsOpen state
+// renders SideBar, Backdrop, MainHeader and NavLinks Components based on screen width
 const MainNav = () => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 

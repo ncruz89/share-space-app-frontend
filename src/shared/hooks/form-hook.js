@@ -1,5 +1,8 @@
 import { useCallback, useReducer } from "react";
 
+// form reducer
+// handles input change and set data cases
+// updates form state and form validity
 const formReducer = (state, action) => {
   switch (action.type) {
     case "INPUT_CHANGE":
@@ -31,16 +34,26 @@ const formReducer = (state, action) => {
   }
 };
 
+// useForm custom hook
+// receives initial inputs and form validity as parameters
+// uses formReducer to handle formState
+// returns access to form state as well as the inputHandler and setFormData methods
 export const useForm = (initialInputs, initialFormValidity) => {
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
     isValid: initialFormValidity,
   });
 
+  // input handler method
+  // receives input id, value and validity as parameters
+  // dispatches to formReducer INPUT CHANGE case
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({ type: "INPUT_CHANGE", inputId: id, value, isValid });
   }, []);
 
+  // setFormData method
+  // receives inputData and formValidity as parameters
+  // dispatches to formReducer SET DATA case
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
       type: "SET_DATA",

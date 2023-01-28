@@ -18,6 +18,7 @@ import { useHttpClient } from "../../../shared/hooks/http-hook";
 
 import "./Auth.styles.css";
 
+// Auth form initial state
 const INITIAL_STATE = {
   email: {
     value: "",
@@ -29,6 +30,12 @@ const INITIAL_STATE = {
   },
 };
 
+// Auth component
+// handles loginMode state
+// utilizes useHttpClient and useForm custom hooks
+// on initialization setsForm data
+
+// renders either login or signup form dependent on loginMode state
 const Auth = () => {
   const { login } = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -43,13 +50,11 @@ const Auth = () => {
     );
   }, []);
 
-  if (isLoginMode) {
-  } else {
-  }
+  // login submit handler
+  // sends different custom request to backend dependent on isLoginMode state
+  // if successful user is logged in
   const loginSubmitHandler = async (event) => {
     event.preventDefault();
-
-    console.log(formState.inputs);
 
     if (isLoginMode) {
       try {
@@ -64,17 +69,18 @@ const Auth = () => {
             "Content-Type": "application/json",
           }
         );
-        console.log(userData);
+
         login(userData.userId, userData.token);
       } catch (error) {}
     } else {
       try {
+        // must use formData.append here since image isn't json
         const formData = new FormData();
         formData.append("username", formState.inputs.username.value);
         formData.append("email", formState.inputs.email.value);
         formData.append("password", formState.inputs.password.value);
         formData.append("image", formState.inputs.image.value);
-        console.log(formData);
+
         const userData = await sendRequest(
           process.env.REACT_APP_BACKEND_URL + "/users/signup",
           "POST",
@@ -85,6 +91,8 @@ const Auth = () => {
     }
   };
 
+  // switch mode handler
+  // handles form state while also handling login/signup mode state
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(

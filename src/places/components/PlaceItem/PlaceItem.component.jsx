@@ -13,6 +13,13 @@ import { useHttpClient } from "../../../shared/hooks/http-hook";
 
 import "./PlaceItem.styles.css";
 
+// PlaceItem component
+// receives multiple props
+// handles showMap, confirmModal state
+// uses useHttpClient custom hook
+
+// returns react fragment that handles rendering error, map and confirm delete modals
+// also renders place list item which houses place picture, title, description, address and map, edit and delete Buttons
 const PlaceItem = ({
   image,
   title,
@@ -28,17 +35,25 @@ const PlaceItem = ({
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  // open map handler - sets showMap state to true
   const openMapHandler = () => setShowMap(true);
+
+  // close map handler - sets showMap state to false
   const closeMapHandler = () => setShowMap(false);
 
+  // show delete warning handler - sets showConfirmModal to true
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
   };
 
+  // cancel delete handler - sets showConfirmModal to false
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
   };
 
+  // confirm delete handler - sets showConfirmModal to false
+  // sends delete request for place to backend / authorization required
+  // if successful runs onDelete callback and passes place id
   const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
 

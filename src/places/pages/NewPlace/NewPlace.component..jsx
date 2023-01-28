@@ -18,6 +18,9 @@ import { AuthContext } from "../../../shared/Context/auth.context";
 
 import "./NewPlace.styles.css";
 
+// NewPlace Component
+// uses useHttpClient and useForm custom hooks
+// renders newPlace form with multiple inputs, ImageUploader and Button components
 const NewPlace = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -46,10 +49,11 @@ const NewPlace = () => {
 
   const history = useHistory();
 
+  // placeSubmitHandler
+  // requests post to backend and sends new place form data / authorization required
+  // if successful returns to homepage
   const placeSubmitHandler = async (event) => {
     event.preventDefault();
-
-    console.log(auth.token);
 
     try {
       const formData = new FormData();

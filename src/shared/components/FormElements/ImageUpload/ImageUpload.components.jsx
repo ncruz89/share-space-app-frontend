@@ -4,6 +4,12 @@ import Button from "../Button/Button.component";
 
 import "./ImageUpload.styles.css";
 
+// ImageUploader Component
+// receives multiple props
+// handles file, previewUrl and isValid states
+// once file state is set/updated useEffect runs new FileReader() instance
+// fileReader then reads file and sets previewUrl state
+// renders image preview and pick image button
 const ImageUploader = ({ id, center, onInput, errorText }) => {
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
@@ -22,14 +28,19 @@ const ImageUploader = ({ id, center, onInput, errorText }) => {
     };
   }, [file]);
 
+  // pickImageHandler
+  // simulates click event on element that's referencing filePickerRef
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
 
+  // pickedHandler
+  // gathers pickedFile from event.target
+  // sets file and isValid state
   const pickedHandler = (event) => {
     let pickedFile;
     let fileIsValid = isValid;
-    console.log(event.target);
+
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
       setFile(pickedFile);

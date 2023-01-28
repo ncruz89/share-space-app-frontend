@@ -6,6 +6,10 @@ import Card from "../../../shared/components/UIElements/Card/Card.component";
 
 import "./UserItem.styles.css";
 
+// UserItem component
+// receives multiple props
+// renders a user card that houses an avatar, name and their place count
+// card also acts as a link to user places route
 const UserItem = ({ id, image, name, placeCount }) => {
   return (
     <li className="user-item" id={id}>

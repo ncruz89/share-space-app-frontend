@@ -3,6 +3,9 @@ import React from "react";
 import Modal from "../Modal/Modal.component";
 import Button from "../../FormElements/Button/Button.component";
 
+// ErrorModal component
+// receives onClear and error props
+// returns Modal component and passes on props and Button component to Modal Component
 const ErrorModal = ({ onClear, error }) => {
   return (
     <Modal

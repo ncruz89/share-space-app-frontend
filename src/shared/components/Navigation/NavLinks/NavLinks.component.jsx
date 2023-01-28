@@ -5,6 +5,8 @@ import { AuthContext } from "../../../Context/auth.context";
 
 import "./NavLinks.styles.css";
 
+// NavLinks component
+// renders a list of nav links dependent on loggedIn state
 const NavLinks = () => {
   const { isLoggedIn, logout, userId } = useContext(AuthContext);
 

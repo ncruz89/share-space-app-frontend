@@ -18,6 +18,10 @@ import { AuthContext } from "../../../shared/Context/auth.context";
 
 import "./UpdatePlace.styles.css";
 
+// UpdatePlace Component
+// handles loadedPlace state
+// uses useHttpClient and useForm custom hooks
+// renders limited input form for place update and Button component
 const UpdatePlace = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -25,6 +29,7 @@ const UpdatePlace = () => {
   const placeId = useParams().placeId;
   const history = useHistory();
 
+  // sets default form state
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -39,14 +44,13 @@ const UpdatePlace = () => {
     false
   );
 
+  // useEffect to fetch place data to populate form state
   useEffect(() => {
     const fetchPlace = async () => {
       try {
         const data = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`
         );
-
-        console.log(data);
 
         setLoadedPlace(data.place);
         setFormData(
@@ -67,6 +71,9 @@ const UpdatePlace = () => {
     fetchPlace();
   }, [sendRequest, placeId, setFormData]);
 
+  // placeUpdateSubmitHandler
+  // patch request to backend to update place data
+  // once completed returns to user places page
   const placeUpdateSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -86,6 +93,7 @@ const UpdatePlace = () => {
     } catch (error) {}
   };
 
+  // renders Spender component if isLoading is true
   if (isLoading) {
     return (
       <div className="center">
@@ -94,6 +102,7 @@ const UpdatePlace = () => {
     );
   }
 
+  // if no loadedPlaces and no errors renders Card component
   if (!loadedPlace && !error) {
     return (
       <div className="center">

@@ -5,6 +5,9 @@ import Card from "../../../shared/components/UIElements/Card/Card.component";
 
 import "./UserList.styles.css";
 
+// UserList component
+// receives users as parameter
+// if users array is greater than 0 then maps over users and renders a <UserItem> component for each user
 const UserList = ({ users }) => {
   if (users.length === 0) {
     return (

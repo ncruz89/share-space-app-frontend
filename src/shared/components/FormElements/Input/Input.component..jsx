@@ -3,6 +3,10 @@ import React, { useReducer, useEffect } from "react";
 import { validate } from "../../../util/validators";
 import "./Input.styles.css";
 
+// Input reducer
+// handles CHANGE and TOUCH actions
+// CHANGE case updates value state along with validation
+// TOUCH case updates isTouched state in input to know if user has focused on a certain input to avoid validation warnings before user focuses on input
 const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
@@ -21,6 +25,11 @@ const inputReducer = (state, action) => {
   }
 };
 
+// Input component
+// receives a variety of props
+// handles input state
+// renders different inputs based on elementType prop
+// also renders validation error messages if activated
 const Input = ({
   elementType,
   type,

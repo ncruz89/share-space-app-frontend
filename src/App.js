@@ -12,6 +12,7 @@ import MainNav from "./shared/components/Navigation/MainNav/MainNav.component";
 import Users from "./users/pages/Users/Users.component";
 import Spinner from "./shared/components/UIElements/Spinner/Spinner.component";
 
+// lazy loading all routes not on main page
 const NewPlace = React.lazy(() =>
   import("./places/pages/NewPlace/NewPlace.component.")
 );
@@ -23,10 +24,13 @@ const UpdatePlace = React.lazy(() =>
 );
 const Auth = React.lazy(() => import("./users/pages/Auth/Auth.component"));
 
+// app component
+
+// renders navigation components and routes based on login state
 const App = () => {
   const { isLoggedIn, login } = useContext(AuthContext);
 
-  // auto login functionality using localStorage and token + a token timer
+  // auto login functionality using localStorage, token and a token expiration timer
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
 
@@ -45,6 +49,7 @@ const App = () => {
 
   let routes;
 
+  // checks isLoggedIn state and creates new Routes to render
   if (isLoggedIn) {
     routes = (
       <Switch>
